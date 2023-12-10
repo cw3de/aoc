@@ -1,48 +1,65 @@
 package maze
 
-func (maze *Maze) Draw(usedOnly bool) {
-	print("\u2554")
-	for x := 0; x < maze.Width(); x++ {
-		print("\u2550")
-	}
-	println("\u2557")
+const (
+	DoubleVertical          = "\u2551"
+	DoubleHorizontal        = "\u2550"
+	DoubleTopLeftCorner     = "\u2554"
+	DoubleTopRightCorner    = "\u2557"
+	DoubleBottomLeftCorner  = "\u255a"
+	DoubleBottomRightCorner = "\u255d"
 
-	for y, row := range maze.Pipes {
-		print("\u2551")
-		for x, pipe := range row {
-			if usedOnly && !maze.Used[y][x] {
-				print(" ")
-			} else {
-				switch pipe {
-				case Ground:
-					print(".")
-				case Start:
-					print("S")
-				case Inner:
-					print("\u2588")
-				case Vertical:
-					print("\u2502")
-				case Horizontal:
-					print("\u2500")
-				case NorthEast:
-					print("\u2514")
-				case NorthWest:
-					print("\u2518")
-				case SouthEast:
-					print("\u250c")
-				case SouthWest:
-					print("\u2510")
-				default:
-					print(string(pipe))
-				}
+	SingleVertical          = "\u2502"
+	SingleHorizontal        = "\u2500"
+	SingleTopLeftCorner     = "\u250c"
+	SingleTopRightCorner    = "\u2510"
+	SingleBottomLeftCorner  = "\u2514"
+	SingleBottomRightCorner = "\u2518"
+
+	FullBlock = "\u2588"
+	MiddleDot = "\u00b7"
+)
+
+func (m *Maze) Draw() {
+	print(DoubleTopLeftCorner)
+	for x := 0; x < m.Width(); x++ {
+		print(DoubleHorizontal)
+	}
+	println(DoubleTopRightCorner)
+
+	for _, row := range m.Pipe {
+		print(DoubleVertical)
+		for _, pipe := range row {
+			switch pipe {
+			case Ground:
+				print(MiddleDot)
+			case Start:
+				print("S")
+			case Outer:
+				print("o")
+			case Inner:
+				print(FullBlock)
+			case Vertical:
+				print(SingleVertical)
+			case Horizontal:
+				print(SingleHorizontal)
+			case NorthEast:
+				print(SingleBottomLeftCorner)
+			case NorthWest:
+				print(SingleBottomRightCorner)
+			case SouthEast:
+				print(SingleTopLeftCorner)
+			case SouthWest:
+				print(SingleTopRightCorner)
+			default:
+				print(string(pipe))
 			}
 		}
-		print("\u2551")
+		print(DoubleVertical)
 		println()
 	}
-	print("\u255a")
-	for x := 0; x < maze.Width(); x++ {
-		print("\u2550")
+	print(DoubleBottomLeftCorner)
+	for x := 0; x < m.Width(); x++ {
+		print(DoubleHorizontal)
 	}
-	println("\u255d")
+	println(DoubleBottomRightCorner)
 }

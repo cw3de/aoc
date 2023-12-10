@@ -13,7 +13,7 @@ func task1(filename string) {
 	}
 	result := m.FindLoop(maze.Start)
 	// m.ClearUnsed()
-	// m.Draw(false)
+	// m.Draw()
 	fmt.Println(filename, "task 1:", result/2)
 }
 
@@ -24,18 +24,17 @@ func task2(filename string, startReplace byte) {
 	}
 	m.FindLoop(startReplace)
 	m.ClearUnsed()
-	// m.Draw(false)
-	q := maze.NewQuadMaze(m)
-	q.FillOutside()
-	result := q.FillInside()
-	m.Draw(false)
+	qm := maze.NewQuadMaze(m)
+	qm.FillOutside()
+	result := qm.FillInside()
+	// m.Draw()
 	fmt.Println(filename, "task 2:", result)
 }
 
 func main() {
 	// task1("sample1.txt")
 	task1("input.txt")
-	task2("loop1.txt", maze.SouthEast)
+	// task2("loop1.txt", maze.SouthEast)
 	// task2("loop2.txt", maze.SouthEast)
 	// task2("loop3.txt", maze.SouthEast)
 	// task2("loop4.txt", maze.SouthWest)

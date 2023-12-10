@@ -48,7 +48,7 @@ func NewQuadMaze(maze *Maze) *QuadMaze {
 	for x := 0; x < qw; x++ {
 		q.Block[0][x] = '.'
 	}
-	for y, row := range maze.Pipes {
+	for y, row := range maze.Pipe {
 		qy := 1 + y*2
 		// fmt.Println("make new quad row", qy, "from", y)
 		q.Block[qy+0] = make([]byte, qw)
