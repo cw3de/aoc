@@ -12,13 +12,26 @@ import (
 type Button struct {
 	Numbers []int  // index into lights or joltage
 	Pattern []bool // true, if button cotains index
-	Count   int
 }
 
 type Machine struct {
 	Lights  []bool
 	Joltage []int
 	Buttons []*Button
+}
+
+func (b *Button) String() string {
+	var sb strings.Builder
+	sb.WriteRune('(')
+	for _, p := range b.Pattern {
+		if p {
+			sb.WriteString("1")
+		} else {
+			sb.WriteString(".")
+		}
+	}
+	sb.WriteRune(')')
+	return sb.String()
 }
 
 func Show(m *Machine) {
@@ -91,7 +104,6 @@ func ParseLine(line string) *Machine {
 		buttons = append(buttons, &Button{
 			Numbers: numbers,
 			Pattern: pattern,
-			Count:   0,
 		})
 	}
 
